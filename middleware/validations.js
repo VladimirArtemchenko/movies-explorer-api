@@ -1,5 +1,5 @@
 const { celebrate, Joi } = require('celebrate');
-const { URL_LINK } = require('../constants');
+const { URL_LINK } = require('../utils/constants');
 
 const validationLogin = celebrate({
   body: Joi.object().keys({
@@ -10,7 +10,7 @@ const validationLogin = celebrate({
 
 const validationCreateUser = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
+    name: Joi.string().required().min(2).max(30),
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),

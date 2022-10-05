@@ -1,18 +1,16 @@
 require('dotenv').config();
 const express = require('express');
+const { PORT, DATA_BASE } = require('./config');
+const helmet = require('helmet');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const cors = require('cors');
 
-const { MONGODB_ADDRESS = '//localhost:27017/filmsdb', PORT = 3001 } = process.env;
-
 const { requestLogger, errorLogger } = require('./middleware/logger');
-
-const router = require('./routes');
-const { login, createUser } = require('./controllers/users');
+const { limiter } = require('./middleware/limiter');
+const router = require('./routes/index');
 const auth = require('./middleware/middleware');
 const handelError = require('./middleware/handelError');
-const { validationLogin, validationCreateUser } = require('./middleware/validations');
 
 const options = {
   origin: [
@@ -30,14 +28,14 @@ const options = {
 
 const app = express();
 
-mongoose.connect(`mongodb:${MONGODB_ADDRESS}`);
+mongoose.connect(DATA_BASE);
 
 app.use(cors(options));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(helmet());
 app.use(requestLogger);
-app.post('/signin', validationLogin, login);
-app.post('/signup', validationCreateUser, createUser);
-app.use(auth);
+app.use(limiter);
 app.use(router);
 app.use(errorLogger);
 app.use(errors());
