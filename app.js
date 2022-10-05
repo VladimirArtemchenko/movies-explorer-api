@@ -9,7 +9,6 @@ const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 const { limiter } = require('./middleware/limiter');
 const router = require('./routes/index');
-const auth = require('./middleware/middleware');
 const handelError = require('./middleware/handelError');
 
 const options = {
