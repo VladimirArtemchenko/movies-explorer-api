@@ -54,7 +54,7 @@ const deleteMovie = (req, res, next) => {
     .orFail(() => next(new ErrorNotFound(ERROR_MESSAGE_NOT_FOUND_FILM)))
     .then((movie) => {
       if (!movie.owner.equals(req.user._id)) {
-        next(new ForbiddenError());
+        next(new ForbiddenError(ERROR_MESSAGE_NO_RIGHTS_FILM));
       } else {
         movie.remove()
           .then(() => res.send({ message: movie }))
