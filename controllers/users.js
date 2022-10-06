@@ -1,14 +1,15 @@
-const { JWT } = require('../config');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { JWT } = require('../config');
 const User = require('../models/user');
 const ErrorNotFound = require('../errors/ErrorNotFound');
 const BadRequest = require('../errors/BadRequest');
 const ConflictError = require('../errors/ConflictError');
+const { ERROR_MESSAGE_VALIDATION, ERROR_MESSAGE_NOT_FOUND_USER, ERROR_MESSAGE_CONFLICT_EMAIL } = require('../utils/constants');
 
 const getUserInfo = (req, res, next) => {
   User.findById(req.user._id)
-    .orFail(() => next(new ErrorNotFound('Пользователь не найден')))
+    .orFail(() => next(new ErrorNotFound()))
     .then((user) => res.send(user))
     .catch(next);
 };
@@ -16,13 +17,13 @@ const getUserInfo = (req, res, next) => {
 const updateUser = (req, res, next) => {
   const { name, email } = req.body;
   User.findByIdAndUpdate(req.user._id, { name, email }, { new: true, runValidators: true })
-    .orFail(() => next(new ErrorNotFound('Пользователь не найден')))
+    .orFail(() => next(new ErrorNotFound(ERROR_MESSAGE_NOT_FOUND_USER)))
     .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequest('Ошибка валидации'));
+        next(new BadRequest(ERROR_MESSAGE_VALIDATION));
       } else if (err.code === 11000) {
-        next(new ConflictError('Данный email уже используется'));
+        next(new ConflictError(ERROR_MESSAGE_CONFLICT_EMAIL));
       } else {
         next(err);
       }
@@ -42,9 +43,9 @@ const createUser = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequest('Ошибка валидации'));
+        next(new BadRequest(ERROR_MESSAGE_VALIDATION));
       } else if (err.code === 11000) {
-        next(new ConflictError('Данный email уже используется'));
+        next(new ConflictError(ERROR_MESSAGE_CONFLICT_EMAIL));
       } else {
         next(err);
       }
@@ -55,7 +56,7 @@ const login = (req, res, next) => {
   const { email, password } = req.body;
   User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id },JWT, { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, JWT, { expiresIn: '7d' });
       res.send({ token });
     })
     .catch(next);

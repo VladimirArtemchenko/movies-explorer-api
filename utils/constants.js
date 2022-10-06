@@ -6,6 +6,19 @@ const ERROR_CODE_CONFLICT = 409;
 const ERROR_CODE_INTERNAL_SERVER_ERROR = 500;
 const URL_LINK = /^https?:\/\/(www\.)?[a-zA-Z\d-]+\.[\w\d\-.~:/?#[\]@!$&'()*+,;=]{2,}#?$/;
 
+const ERROR_MESSAGE_BAD_REQUEST = 'Ошибка валидации';
+const ERROR_MESSAGE_UNAUTHORIZED = 'Необходима авторизация';
+const ERROR_MESSAGE_VALIDATION = 'Ошибка валидации';
+const ERROR_MESSAGE_NOT_FOUND_FILM = 'Не найден фильм по указаному id';
+const ERROR_MESSAGE_NOT_FOUND_USER = 'Пользователь не найден';
+const ERROR_MESSAGE_NOT_FOUND_PAGE = 'Запрашиваемая страница отсутствует';
+const ERROR_MESSAGE_NO_RIGHTS_FILM = 'Нет прав для удаления фильма';
+const ERROR_MESSAGE_CONFLICT_EMAIL = 'Данный email уже используется';
+const ERROR_MESSAGE_SERVER = 'Внутренняя ошибка сервера';
+const ERROR_MESSAGE_URL = 'Некорректный адрес URL';
+const ERROR_MESSAGE_EMAIL = 'Некорректый адрес почты';
+const ERROR_MESSAGE_AUTHORIZATION = 'Неправильная почта или пароль';
+
 module.exports = {
   ERROR_CODE_BAD_REQUEST,
   ERROR_CODE_FORBIDDEN,
@@ -14,4 +27,17 @@ module.exports = {
   ERROR_CODE_UNAUTHORIZED,
   ERROR_CODE_CONFLICT,
   URL_LINK,
+  ERROR_MESSAGE_BAD_REQUEST,
+  ERROR_MESSAGE_UNAUTHORIZED,
+  ERROR_MESSAGE_VALIDATION,
+  ERROR_MESSAGE_NOT_FOUND_FILM,
+  ERROR_MESSAGE_NOT_FOUND_USER,
+  ERROR_MESSAGE_NOT_FOUND_PAGE,
+  ERROR_MESSAGE_NO_RIGHTS_FILM,
+  ERROR_MESSAGE_CONFLICT_EMAIL,
+  ERROR_MESSAGE_SERVER,
+  ERROR_MESSAGE_URL,
+  ERROR_MESSAGE_EMAIL,
+  ERROR_MESSAGE_AUTHORIZATION,
+
 };

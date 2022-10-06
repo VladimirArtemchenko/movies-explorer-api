@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { URL_LINK } = require('../utils/constants');
+const { ERROR_MESSAGE_URL } = require('../utils/constants');
 
 const moviesSchema = new mongoose.Schema({
   country: {
@@ -27,7 +28,7 @@ const moviesSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (url) => URL_LINK.test(url),
-      message: 'Некорректный адрес URL',
+      message: ERROR_MESSAGE_URL,
     },
   },
   trailerLink: {
@@ -35,7 +36,7 @@ const moviesSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (url) => URL_LINK.test(url),
-      message: 'Некорректный адрес URL',
+      message: ERROR_MESSAGE_URL,
     },
   },
   thumbnail: {
@@ -43,7 +44,7 @@ const moviesSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (url) => URL_LINK.test(url),
-      message: 'Некорректный адрес URL',
+      message: ERROR_MESSAGE_URL,
     },
   },
   owner: {
