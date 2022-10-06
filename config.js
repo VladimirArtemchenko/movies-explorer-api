@@ -2,8 +2,8 @@ require('dotenv').config();
 
 const {
   NODE_ENV,
-  JWT = 'ArtemchenkoVladimir',
-  DATA_BASE = 'mongodb://localhost:27017/moviesdb',
+  JWT,
+  DATA_BASE,
   PORT,
 } = process.env;
 
