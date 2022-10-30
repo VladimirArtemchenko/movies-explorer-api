@@ -15,7 +15,7 @@ const options = {
   origin: [
     'http://localhost:3000',
     'http://localhost:3001',
-    'https://artemchenko.films.nomoredomains.icu',
+    'http://artemchenko.films.nomoredomains.icu',
     'https://artemchenko.films.nomoredomains.icu',
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
